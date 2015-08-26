@@ -1,4 +1,6 @@
 class Url < ActiveRecord::Base
+  belongs_to :user
+  
   validates_format_of :ori_url, :with => URI::regexp(%w(http https))
 
   before_save :create_short_url

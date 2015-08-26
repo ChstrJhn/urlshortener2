@@ -1,16 +1,17 @@
 <div class="container">
 
-<h2> Welcome!</h2>
+<h2> Welcome <%= @userz.name %>!</h2>
+<h3> Your user id is : <%= @userz.id %> </h3>
 
 <h1>URL Shortener</h1>
   <p>Give us a URL you'd like to shorten:</p>
 
-  <form action="/urls" method="post">
-  <p><b>Your URL : </b><input type="text" name="url"></p>
+  <form action="/urls/user" method="post">
+  <p><b>Your URL : </b><input type="text" name="post[url]"></p>
   <p><input type="submit" value="Short it!"></p>
   </form>
 
-  <h3>URL shorties already available:</h3>
+  <h3>URL shorties you've made:</h3>
   
     <table border=1>
       <tr>
@@ -18,12 +19,14 @@
         <th>Short Url</th>
         <th>Click count</th>
        </tr>
-        <% @shorturl.each do |url|%>
+       <% unless @shorts.nil? %>
+        <% @shorts.each do |url|%>
         <tr>
         <td><%= url.ori_url%></td>
-        <td><a href = "<%= url.short_url%>"><%=url.short_url%></td>
-        <td><%= url.click_count%></td>
+        <td><a href = "/urls/<%= url.short_url%>"><%=url.short_url%></td>
+        <td><%= url.click_count %></td>
        </tr>
+         <% end %>
          <% end %>
     </table>
 
